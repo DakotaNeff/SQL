@@ -1,4 +1,4 @@
--- Created a database with bowling ball names, prices, type of ball and how many are in stock
+--Created a database with bowling ball names, prices, type of ball and how many are in stock
 
 CREATE TABLE bowling_balls (id INTEGER PRIMARY KEY, name TEXT, price INTEGER, surface TEXT, in_stock INTEGER);
 
@@ -18,10 +18,18 @@ INSERT INTO bowling_balls VALUES(13, "Hustle", 85, "Pearl", 4);
 INSERT INTO bowling_balls VALUES(14, "Altered Reality", 125, "Hybrid", 0);
 INSERT INTO bowling_balls VALUES(15, "Wolverine", 110, "Pearl", 2);
 
--- Displayed everything in the table ordered by how many there were in stock
+--Displayed everything in the table ordered by how many there were in stock
 
 SELECT * FROM bowling_balls ORDER BY in_stock;
 
--- Added up how many bowling balls were in stock 
+--How many bowling balls are in stock?
 
-SELECT SUM(in_stock) FROM bowling_balls
+SELECT SUM(in_stock) FROM bowling_balls;
+
+--What is the average price a bowling ball is sold for?
+
+SELECT AVG(price) FROM bowling_balls;
+
+--How many of each kind of bowling ball surface do we have in stock?
+
+SELECT surface, COUNT(surface) AS Total FROM bowling_balls GROUP BY surface ORDER BY Total DESC;

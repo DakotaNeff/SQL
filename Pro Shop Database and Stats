@@ -1,0 +1,27 @@
+-- Created a database with bowling ball names, prices, type of ball and how many are in stock
+
+CREATE TABLE bowling_balls (id INTEGER PRIMARY KEY, name TEXT, price INTEGER, surface TEXT, in_stock INTEGER);
+
+INSERT INTO bowling_balls VALUES(1, "Idol Pearl", 150, "pearl", 10);
+INSERT INTO bowling_balls VALUES(2, "Trend", 125, "pearl", 4);
+INSERT INTO bowling_balls VALUES(3, "Idol Helios", 175, "Solid", 15);
+INSERT INTO bowling_balls VALUES(4, "iQ", 110, "Solid", 5);
+INSERT INTO bowling_balls VALUES(5, "Pitch Black", 85, "Urethane", 2);
+INSERT INTO bowling_balls VALUES(6, "T-zone", 65, "Plastic", 30);
+INSERT INTO bowling_balls VALUES(7, "Web Pearl", 125, "Pearl", 10);
+INSERT INTO bowling_balls VALUES(8, "Nova", 140, "Solid", 6);
+INSERT INTO bowling_balls VALUES(9, "Super Nova", 165, "Hybrid", 9);
+INSERT INTO bowling_balls VALUES(10, "Idol Pro", 100, "Hybrid", 2);
+INSERT INTO bowling_balls VALUES(11, "iQ Ruby", 200, "Pearl", 15);
+INSERT INTO bowling_balls VALUES(12, "Purple Hammer", 150, "Urethane", 8);
+INSERT INTO bowling_balls VALUES(13, "Hustle", 85, "Pearl", 4);
+INSERT INTO bowling_balls VALUES(14, "Altered Reality", 125, "Hybrid", 0);
+INSERT INTO bowling_balls VALUES(15, "Wolverine", 110, "Pearl", 2);
+
+-- Displayed everything in the table ordered by how many there were in stock
+
+SELECT * FROM bowling_balls ORDER BY in_stock;
+
+-- Added up how many bowling balls were in stock 
+
+SELECT SUM(in_stock) FROM bowling_balls

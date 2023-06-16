@@ -51,3 +51,10 @@ SELECT COUNT(DISTINCT customers.acctnum), AVG(Quantity*price)
 FROM BIT_DB.FebSales AS feb
 JOIN BIT_DB.customers AS customers ON feb.orderID = customers.order_id
 WHERE Quantity > '2' AND length(feb.orderID) = 6
+
+--What products were sold in Los Angeles in February and how many of each product were sold?
+
+SELECT distinct Product, SUM(Quantity)
+FROM BIT_DB.FebSales 
+WHERE location LIKE '%Los Angeles%'
+GROUP BY product

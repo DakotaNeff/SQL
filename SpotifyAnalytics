@@ -1,0 +1,58 @@
+For the queries below, I downloaded spotify data from Kaggle and analyzed it.
+
+#Creating the table: 
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL 
+)
+
+I then imported the data from the .csv file that I downloaded from Kaggle. Below are the questions I answered using the data.
+
+--What is the average loudness of the top 25 songs (based on popularity)
+
+SELECT AVG(loudness)
+FROM BIT_DB.spotifydata
+WHERE popularity IN (SELECT popularity FROM BIT_DB.Spotifydata ORDER BY popularity DESC LIMIT 25);
+    
+
+--Who has the most songs in the top 200?
+
+SELECT artist_name, COUNT(artist_name) AS number_of_songs
+FROM BIT_DB.spotifydata
+WHERE popularity IN (SELECT popularity FROM BIT_DB.Spotifydata ORDER BY popularity DESC LIMIT 200)
+GROUP BY artist_name
+ORDER BY number_of_songs DESC
+LIMIT 10;
+
+
+--Who has the highest average duration?
+
+SELECT artist_name, AVG(duration_ms) AS avg_duartion_ms
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name
+ORDER BY AVG(duration_ms) DESC
+LIMIT 10;
+
+
+--What song is the most danceable?
+
+SELECT artist_name, track_name, danceability
+FROM BIT_DB.spotifydata
+ORDER BY danceability DESC
+LIMIT 10

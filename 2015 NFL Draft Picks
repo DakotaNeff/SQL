@@ -210,17 +210,26 @@ INSERT INTO picks (pick_number, name, college, picked_by, position)
   
 --What position was selected the most/least?
 
-SELECT MAX(position), COUNT(position) AS amount_picked FROM picks WHERE position = "WR";
+SELECT MAX(position), COUNT(position) AS amount_picked 
+FROM picks 
+WHERE position = "WR";
 
-SELECT MIN(position), COUNT(position) AS amount_picked FROM picks WHERE position = "C";
+SELECT MIN(position), COUNT(position) AS amount_picked 
+FROM picks 
+WHERE position = "C";
 
 --How many WR were picked in the first round?
 
-SELECT position, COUNT(position) AS total_picked FROM picks WHERE position = "WR" AND pick_number < 33;
+SELECT position, COUNT(position) AS total_picked 
+FROM picks 
+WHERE position = "WR" AND pick_number < 33;
 
 --What positions had more than 10 players picked?
 
-SELECT position, COUNT(position) AS total_picked FROM picks GROUP BY position HAVING total_picked > 10;
+SELECT position, COUNT(position) AS total_picked 
+FROM picks 
+GROUP BY position 
+HAVING total_picked > 10;
 
 --What round was everyone picked in?
 
@@ -234,4 +243,6 @@ FROM picks;
 
 --What position do the players that got drafted out of BIG 10 schools play and what team did they get drafted by?
 
-SELECT name, position, college, picked_by FROM picks WHERE college IN ("Michigan", "Ohio State", "Michigan State", "Minnesota", "Northwestern", "Rutgers", "Penn State", "Maryland", "Indiana", "Purdue", "Illinois", "Wisconson", "Iowa", "Nebraska")
+SELECT name, position, college, picked_by 
+FROM picks 
+WHERE college IN ("Michigan", "Ohio State", "Michigan State", "Minnesota", "Northwestern", "Rutgers", "Penn State", "Maryland", "Indiana", "Purdue", "Illinois", "Wisconson", "Iowa", "Nebraska")

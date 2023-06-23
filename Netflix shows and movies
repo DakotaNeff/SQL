@@ -38,6 +38,7 @@ FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" AS titles
 JOIN "CharlotteChaze/BreakIntoTech"."netflix_people" AS people
 ON "titles"."show_id" = "people"."show_id"
 WHERE titles.title = 'Bright Star'
+;
 
 --What is the oldest movie in the database and what year was it made?
 
@@ -46,3 +47,4 @@ FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
 WHERE type = 'Movie'
 ORDER BY release_year 
 LIMIT 1
+;

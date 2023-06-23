@@ -1,0 +1,86 @@
+--1) Show me a list of all employees birthdays.
+
+SELECT LastName, FirstName, BirthDate
+FROM chinook.employees
+;
+
+--2) What customer spent the most money in April?
+
+SELECT c.customerId, c.firstname, c.lastname, SUM(i.total) AS Total
+FROM chinook.invoices AS i
+JOIN chinook.customers AS c ON i.CustomerId = c.CustomerId
+GROUP BY c.customerId
+ORDER BY Total DESC
+LIMIT 5
+;
+
+--3) What genre was the most popular? (based on number of tracks bought of that genre)
+WITH temptable AS(
+    SELECT t.genreId, SUM(i.quantity) AS quantity
+    FROM tracks AS t
+    JOIN invoice_items AS i ON t.trackId = i.trackId
+    GROUP BY t.genreId
+    )
+SELECT Name, quantity
+FROM chinook.genres AS g
+JOIN temptable ON g.genreId = temptable.genreId
+ORDER BY quantity DESC
+;
+
+--4) Who were the top 5 sales reps, in terms of sales?
+
+SELECT c.supportRepId, e.lastname, e.firstname, SUM(i.total) AS total_sales
+FROM chinook.customers AS c
+JOIN chinook.invoices AS i ON i.customerId = c.customerId
+JOIN chinook.employees AS e ON c.supportRepId = e.employeeId
+GROUP BY c.supportRepId
+;
+
+--5) Show sales based on customer location(country).
+
+SELECT billingcountry, SUM(total)*SUM(quantity) AS total_sales
+FROM chinook.invoices AS invoice
+JOIN chinook.invoice_items AS items ON invoice.invoiceId = items.invoiceId
+GROUP BY billingcountry
+;
+
+--6) What were the total sales for 2009?
+
+SELECT STRFTIME('%Y', invoicedate) AS year, (SUM(total)*SUM(quantity)) AS Total_Sales
+FROM chinook.invoices AS invoice
+JOIN chinook.invoice_items AS items ON invoice.invoiceId = items.invoiceId
+WHERE invoicedate LIKE '%2009%'
+GROUP BY year
+;
+--7) What was the total number of invoices for 2009?
+
+SELECT COUNT(invoiceId) AS number_of_invoices
+FROM chinook.invoices
+WHERE invoicedate LIKE '%2009%'
+;
+
+--8) Show customers that spent over $40.
+
+SELECT i.customerId, c.firstname, c.lastname, SUM(total) AS total_spent
+FROM chinook.invoices AS i
+JOIN chinook.customers AS c ON i.customerId = c.customerId
+GROUP BY i.customerId
+HAVING total_spent > 40
+ORDER BY total_spent DESC
+;
+
+--9) What country sold the most in terms of quantity?
+
+SELECT billingcountry, SUM(quantity) AS total_quantity
+FROM chinook.invoice_items AS a
+JOIN chinook.invoices AS b ON a.invoiceId = b.invoiceId
+GROUP BY billingcountry
+ORDER BY total_quantity DESC
+;
+
+--10) Show a list of all the tracks with their album name and genre type.
+
+SELECT t.name, a.title, g.name
+FROM chinook.tracks AS t
+JOIN chinook.genres AS g ON t.genreId = g.genreId
+JOIN chinook.albums AS a ON t.albumId = a.albumId

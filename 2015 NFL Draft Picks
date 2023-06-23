@@ -246,3 +246,4 @@ FROM picks;
 SELECT name, position, college, picked_by 
 FROM picks 
 WHERE college IN ("Michigan", "Ohio State", "Michigan State", "Minnesota", "Northwestern", "Rutgers", "Penn State", "Maryland", "Indiana", "Purdue", "Illinois", "Wisconson", "Iowa", "Nebraska")
+;
